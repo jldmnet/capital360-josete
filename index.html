@@ -53,7 +53,7 @@ document.addEventListener('change',e=>{if(e.target.id==='deleteDate')historyRows
 document.addEventListener('click',async e=>{let t=e.target.closest('button');if(!t||!key)return;if(t.id==='manageHistory'){historyManager();return}if(!['deleteDay','deleteAll'].includes(t.id)&&!t.dataset.deleteHistory)return; if(busy)return;let d=$('deleteDate')?.value;let ps=t.dataset.deleteHistory?products.filter(p=>String(p.id)===t.dataset.deleteHistory):products;let all=t.id==='deleteAll';let n=ps.reduce((n,p)=>n+p.history.filter(h=>all||h.date===d).length,0);if(!n)return;if(!confirm(`¿Eliminar definitivamente ${n} valoraciones ${all?'de todo el histórico':'del '+d}? Conserva una copia cifrada si necesitas recuperarlas.`))return;if(all&&prompt('Escribe BORRAR para confirmar')!=='BORRAR')return;busy=true;try{ps.forEach(p=>p.history=p.history.filter(h=>!all&&h.date!==d));await persist();historyManager();if(failed)alert('No se pudo guardar el borrado. Descarga una copia cifrada y no cierres la aplicación.');else alert('Valoraciones eliminadas y cambios guardados.');}finally{busy=false}});
 
 
-const CLIENT='1009602555210-sp4ja24uridrnigldk77g280cuv535sn.apps.googleusercontent.com';
+const CLIENT='1009602555210-sp4ja24uridrnjgldk77g280cuv535sn.apps.googleusercontent.com';
 const metaKey=storageKey+'_sync';let token='',expires=0,syncing=false,dirtyCounter=0, timer;
 function meta(){try{return JSON.parse(localStorage.getItem(metaKey))||{head:null,dirty:true}}catch{return {head:null,dirty:true}}}
 function setMeta(m){localStorage.setItem(metaKey,JSON.stringify(m))}
